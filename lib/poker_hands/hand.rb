@@ -8,7 +8,7 @@ module PokerHands
     end
 
     def generate_groups
-      group_hsh = cards.reduce({}) do |re, card|
+      group_hsh = cards.each_with_object({}) do |card, re|
         group = re[card.value] ||= { count: 0, cards: [] }
         group[:count] += 1
         group[:cards] << card
@@ -19,7 +19,7 @@ module PokerHands
         CardGroup.new(value, data[:count], data[:cards])
       end.sort do |a, b|
         re = b.count <=> a.count
-        re == 0 ? b.value <=> a.value : re
+        re.zero? ? b.value <=> a.value : re
       end
     end
   end

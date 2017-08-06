@@ -58,7 +58,7 @@ module PokerHands
         hand.groups[0].count == 2
       end
 
-      def high_card?(hand)
+      def high_card?(_hand)
         true
       end
 
@@ -73,7 +73,7 @@ module PokerHands
       def vs_flush(left, right)
         left.cards.each_with_index do |lc, i|
           re = compare_card_values(lc, right.cards[i])
-          if re == 0
+          if re.zero?
             next
           else
             return re
@@ -90,12 +90,12 @@ module PokerHands
         compare_card_values(left.groups[0].cards[0], right.groups[0].cards[0])
       end
 
-      alias_method :vs_straight_flush, :vs_straight
+      alias vs_straight_flush vs_straight
 
       def vs_card_groups(left, right)
         left.groups.each_with_index do |lg, i|
           re = compare_card_values(lg.cards[0], right.groups[i].cards[0])
-          if re == 0
+          if re.zero?
             next
           else
             return re
@@ -108,9 +108,9 @@ module PokerHands
         right_card.value_idx <=> left_card.value_idx
       end
 
-      alias_method :vs_two_pairs, :vs_card_groups
-      alias_method :vs_pair,      :vs_card_groups
-      alias_method :vs_high_card, :vs_card_groups
+      alias vs_two_pairs vs_card_groups
+      alias vs_pair vs_card_groups
+      alias vs_high_card vs_card_groups
     end
   end
 end

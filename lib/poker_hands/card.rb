@@ -1,11 +1,12 @@
 module PokerHands
   class Card
-    VALUES = %w[A K Q J T 9 8 7 6 5 4 3 2]
+    VALUES = %w(A K Q J T 9 8 7 6 5 4 3 2).freeze
 
     attr_reader :value, :suit
 
     def initialize(str)
-      @value, @suit = str[0], str[1]
+      @value = str[0]
+      @suit = str[1]
     end
 
     def <=>(other)
